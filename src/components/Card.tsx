@@ -21,16 +21,17 @@ interface CardProps {
 }
 
 export function Card({ data, viewImage }: CardProps): JSX.Element {
+
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <Box key={data.ts} borderRadius="md" bgColor="pGray.800">
-      <Skeleton isLoaded={!isLoading}>
+    <Box key={data.ts} borderRadius="md" bgColor="pGray.800" mb={'5%'}>
+      <Skeleton isLoaded={!isLoading} w={'280px'}>
         <Image
           src={data.url}
           alt={data.title}
           objectFit="cover"
-          w="max"
+          w="300px"
           h={48}
           borderTopRadius="md"
           onClick={() => viewImage(data.url)}
