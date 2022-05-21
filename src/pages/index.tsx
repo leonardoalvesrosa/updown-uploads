@@ -40,12 +40,9 @@ export default function Home(): JSX.Element {
   const {
     data,
     isLoading,
-    error,
     fetchNextPage,
     hasNextPage,
-    isFetching,
     isFetchingNextPage,
-    status,
     isError
   } = useInfiniteQuery(
     'images', fetchImages, {
@@ -61,14 +58,19 @@ export default function Home(): JSX.Element {
   // let formattedData2 = data?.pages.map(item => item?.data.flat(Infinity));
   // console.log(formattedData2);
 
+  // const formattedData = useMemo(() => {
+
+  //   const formatted = data?.pages.flatMap(imageData => {
+  //     return imageData.data.flat();
+  //   });
+
+  //   return formatted;
+  // }, [data]);
+
   const formattedData = useMemo(() => {
-
-    const formatted = data?.pages.flatMap(imageData => {
-      return imageData.data.flat();
-    });
-
-    return formatted;
+    return data?.pages.map(cards => cards.data).flat();
   }, [data]);
+
 
 
   if (isLoading && !isError) {
@@ -94,13 +96,10 @@ export default function Home(): JSX.Element {
           >
             {isFetchingNextPage
               ? 'Carregando...'
-              : hasNextPage
-              && 'Carregar mais'
+              : 'Carregar mais'
             }
           </Button>
         )}
-
-
       </Box>
     </>
   );

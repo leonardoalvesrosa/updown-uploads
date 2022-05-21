@@ -24,15 +24,15 @@ interface ModalViewProps {
 export function CardList({ cards }: CardsProps): JSX.Element {
 
   // TODO MODAL USEDISCLOSURE
-  let { isOpen, onOpen, onClose } = useDisclosure();
-  const [imgUrl, setImgUrl] = useState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [imgUrl, setImgUrl] = useState('');
 
   // TODO SELECTED IMAGE URL STATE
 
   // TODO FUNCTION HANDLE VIEW IMAGE
-  const viewImage = function (imgUrl) {
+  const handleViewImage = (url: string): void => {
     onOpen();
-    setImgUrl(imgUrl);
+    setImgUrl(url);
   }
 
 
@@ -45,7 +45,11 @@ export function CardList({ cards }: CardsProps): JSX.Element {
       >
         {cards?.map(card => (
           <>
-            <Card data={card} viewImage={viewImage} key={card.id} />
+            <Card
+              data={card}
+              viewImage={() => handleViewImage(card.url)}
+              key={card.id}
+            />
           </>
         ))}
       </Flex>
